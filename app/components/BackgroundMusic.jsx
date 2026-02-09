@@ -1,26 +1,42 @@
 "use client";
 import { Howl } from "howler";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-const sound = new Howl({
-  src: ["/music.mp3"],
-  loop: true,
-  volume: 0.3,
-});
+const tracks = {
+  classic: "/classical.mp3",
+  love_romantic: "/love_romantic.mp3",
+  romantic_adventure: "/romantic_adventure.mp3",
+  romantic_piano: "/romantic_piano.mp3",
+  romantic_dreams: "/romantic_dreams.mp3",
+};
 
-export default function BackgroundMusic() {
+export default function BackgroundMusic({ trackId = "classic" }) {
+  const soundRef = useRef(null);
+
   useEffect(() => {
-    // Try to play immediately (might be blocked by browser)
+    const src = tracks[trackId] || tracks.classic;
+
+    // Cleanup previous sound if it exists
+    if (soundRef.current) {
+      soundRef.current.stop();
+      soundRef.current.unload();
+    }
+
+    soundRef.current = new Howl({
+      src: [src],
+      loop: true,
+      volume: 0.3,
+      html5: true, // Use HTML5 audio for potentially long files/streaming
+    });
+
     const playSound = () => {
-      if (!sound.playing()) {
-        sound.play();
+      if (soundRef.current && !soundRef.current.playing()) {
+        soundRef.current.play();
       }
     };
 
-    // Add listeners for user interaction to start audio
     const handleInteraction = () => {
       playSound();
-      // Remove listeners once audio starts
       window.removeEventListener("click", handleInteraction);
       window.removeEventListener("touchstart", handleInteraction);
       window.removeEventListener("keydown", handleInteraction);
@@ -37,8 +53,12 @@ export default function BackgroundMusic() {
       window.removeEventListener("click", handleInteraction);
       window.removeEventListener("touchstart", handleInteraction);
       window.removeEventListener("keydown", handleInteraction);
+      if (soundRef.current) {
+        soundRef.current.stop();
+        soundRef.current.unload();
+      }
     };
-  }, []);
+  }, [trackId]);
 
-  return null; // No UI needed
+  return null;
 }

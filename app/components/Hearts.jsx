@@ -1,36 +1,57 @@
 "use client";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 
-const hearts = [
-  { id: 1, left: "10%", delay: 0, scale: 1 },
-  { id: 2, left: "30%", delay: 2, scale: 0.8 },
-  { id: 3, left: "50%", delay: 4, scale: 1.2 },
-  { id: 4, left: "70%", delay: 1, scale: 0.9 },
-  { id: 5, left: "90%", delay: 3, scale: 1.1 },
-];
+const particleTypes = {
+  hearts: ["💖", "💗", "💓", "💝", "💕"],
+  stars: ["✨", "⭐", "🌟", "💫", "🌠"],
+  petals: ["🌸", "🌹", "🌷", "🌻", "🌺"],
+};
 
-export default function Hearts() {
+export default function Hearts({ type = "hearts" }) {
+  const particles = useMemo(() => {
+    const chars = particleTypes[type] || particleTypes.hearts;
+    return Array.from({ length: 25 }).map((_, i) => ({
+      id: i,
+      char: chars[Math.floor(Math.random() * chars.length)],
+      size: Math.random() * (24 - 12) + 12,
+      left: Math.random() * 100,
+      initialY: Math.random() * 100,
+      duration: Math.random() * (15 - 5) + 5,
+      delay: Math.random() * 5,
+    }));
+  }, [type]);
+
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden select-none">
-      {hearts.map((heart) => (
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      {particles.map((p) => (
         <motion.div
-          key={heart.id}
-          initial={{ y: "110vh", opacity: 0 }}
+          key={p.id}
+          initial={{
+            opacity: 0,
+            y: "110vh",
+            x: `${p.left}vw`,
+            scale: 0.5,
+          }}
           animate={{
+            opacity: [0, 0.4, 0.4, 0],
             y: "-10vh",
-            opacity: [0, 0.3, 0],
-            x: [0, 20, -20, 0],
+            x: [`${p.left}vw`, `${p.left + (Math.random() * 10 - 5)}vw`],
+            rotate: [0, 360],
+            scale: [0.5, 1, 1],
           }}
           transition={{
-            duration: 15,
+            duration: p.duration,
             repeat: Infinity,
-            delay: heart.delay,
+            delay: p.delay,
             ease: "linear",
           }}
-          style={{ left: heart.left, scale: heart.scale }}
-          className="absolute text-5xl"
+          style={{
+            position: "absolute",
+            fontSize: `${p.size}px`,
+          }}
         >
-          {["💖", "💗", "💓", "💕"][heart.id % 4]}
+          {p.char}
         </motion.div>
       ))}
     </div>
