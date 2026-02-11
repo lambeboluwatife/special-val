@@ -3,10 +3,38 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import Header from "../components/Header";
 import Script from "next/script";
 import ThemeWrapper from "../components/ThemeWrapper";
 import Hearts from "../components/Hearts";
 import BackgroundMusic from "../components/BackgroundMusic";
+import {
+  Heart,
+  User,
+  Edit,
+  Palette,
+  CheckCircle,
+  Sparkles,
+  Star,
+  Flower,
+  Lock,
+  ArrowRight,
+  ArrowLeft,
+  Lightbulb,
+  GripVertical,
+  X,
+  PlusCircle,
+  Ticket,
+  Info,
+  Trash2,
+  Rocket,
+  Play,
+  Square,
+  Music,
+  CreditCard,
+  BookOpen,
+  Sliders,
+} from "lucide-react";
 
 const THEMES = [
   {
@@ -29,6 +57,26 @@ const THEMES = [
     name: "Ocean",
     color: "linear-gradient(to bottom right, #2dd4bf, #0891b2)",
   },
+  {
+    id: "rose",
+    name: "Rose",
+    color: "linear-gradient(to bottom right, #e11d48, #9f1239)",
+  },
+  {
+    id: "lavender",
+    name: "Lavender",
+    color: "linear-gradient(to bottom right, #9333ea, #581c87)",
+  },
+  {
+    id: "golden",
+    name: "Golden",
+    color: "linear-gradient(to bottom right, #d97706, #b45309)",
+  },
+  {
+    id: "berry",
+    name: "Berry",
+    color: "linear-gradient(to bottom right, #db2777, #9d174d)",
+  },
 ];
 
 const MUSIC = [
@@ -40,9 +88,9 @@ const MUSIC = [
 ];
 
 const ANIMATIONS = [
-  { id: "hearts", name: "Hearts", icon: "favorite" },
-  { id: "stars", name: "Stars", icon: "star" },
-  { id: "petals", name: "Petals", icon: "eco" },
+  { id: "hearts", name: "Hearts", icon: Heart },
+  { id: "stars", name: "Stars", icon: Star },
+  { id: "petals", name: "Petals", icon: Flower },
 ];
 
 export default function CreateValentine() {
@@ -186,7 +234,7 @@ export default function CreateValentine() {
     window.FlutterwaveCheckout({
       public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
       tx_ref: `val-${Date.now()}`,
-      amount: 2500,
+      amount: 1000,
       currency: "NGN",
       payment_options: "card,banktransfer,ussd",
       customer: {
@@ -232,12 +280,6 @@ export default function CreateValentine() {
     });
   };
 
-  const wizardTabs = [
-    { id: 1, name: "The Identity", icon: "favorite" },
-    { id: 2, name: "Our Journey", icon: "auto_stories" },
-    { id: 3, name: "Finalize Magic", icon: "auto_awesome" },
-  ];
-
   return (
     <ThemeWrapper theme={form.theme}>
       {/* Load Flutterwave Inline Script */}
@@ -254,47 +296,15 @@ export default function CreateValentine() {
         }}
       />
 
-      <div className="min-h-screen bg-background-light dark:bg-background-dark font-display flex flex-col items-center">
-        {/* Header */}
-        <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50 w-full">
-          <div className="flex items-center gap-4 text-primary">
-            <div className="size-8 flex items-center justify-center bg-primary/10 rounded-full">
-              <span className="material-symbols-outlined text-primary">
-                favorite
-              </span>
-            </div>
-            <h2 className="text-[#181112] dark:text-white text-lg font-bold leading-tight tracking-tight">
-              Omo Mi Builder
-            </h2>
-          </div>
-          <div className="flex flex-1 justify-end gap-6 items-center">
-            <div className="hidden md:flex items-center gap-8">
-              <a
-                className="text-[#181112] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
-                href="#"
-              >
-                Dashboard
-              </a>
-              <a
-                className="text-[#181112] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
-                href="#"
-              >
-                Inspiration
-              </a>
-            </div>
-            <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden md:block"></div>
-            <button className="flex min-w-[100px] cursor-pointer items-center justify-center rounded-full h-10 px-5 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform active:scale-95">
-              <span>Save Draft</span>
-            </button>
-          </div>
-        </header>
+      <div className="min-h-screen bg-white font-display flex flex-col items-center">
+    <Header  />
 
         <main
-          className={`w-full max-w-[1200px] px-4 py-8 relative z-10 flex flex-col ${wizardStep === 2 || wizardStep === 3 ? "lg:flex-row gap-10" : "items-center"}`}
+          className={`w-full max-w-300 px-4 py-8 relative z-10 mt-20 flex flex-col ${wizardStep === 2 ? "lg:flex-row gap-10" : "items-center"}`}
         >
           <div
             className={
-              wizardStep === 2 || wizardStep === 3
+              wizardStep === 2
                 ? "flex-1 flex flex-col gap-8"
                 : "w-full max-w-4xl"
             }
@@ -308,17 +318,17 @@ export default function CreateValentine() {
                 <span className="bg-primary/10 text-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                   Step {wizardStep} of 3
                 </span>
-                <p className="text-[#181112] dark:text-white text-sm font-semibold">
+                <p className="text-[#181112] text-sm font-semibold">
                   {Math.round((wizardStep / 3) * 100)}% Complete
                 </p>
               </div>
-              <div className="h-3 w-full bg-[#e6dbdd] dark:bg-zinc-800 rounded-full overflow-hidden relative">
+              <div className="h-3 w-full bg-[#e6dbdd] rounded-full overflow-hidden relative">
                 <div
                   className="h-full bg-primary rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(238,43,75,0.4)]"
                   style={{ width: `${(wizardStep / 3) * 100}%` }}
                 ></div>
               </div>
-              <p className="text-[#896168] dark:text-zinc-400 text-sm italic">
+              <p className="text-[#896168] text-sm italic">
                 {wizardStep === 1 &&
                   '"Love is a beautiful journey, let\'s start yours..."'}
                 {wizardStep === 2 &&
@@ -327,7 +337,9 @@ export default function CreateValentine() {
               </p>
             </div>
 
-            <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-2xl shadow-primary/5 p-8 md:p-12 border border-white/50 dark:border-zinc-800">
+            <div
+              className={`bg-card-light rounded-xl shadow-2xl shadow-primary/5 p-8 md:p-12 border-2 border-primary ${wizardStep === 3 ? "bg-white" : ""}`}
+            >
               {error && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
@@ -347,10 +359,10 @@ export default function CreateValentine() {
                   >
                     {/* Title Section */}
                     <div className="text-center md:text-left">
-                      <h1 className="text-[#181112] dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-tighter mb-3">
+                      <h1 className="text-[#181112] text-4xl md:text-5xl font-black leading-tight tracking-tighter mb-3">
                         The Identity
                       </h1>
-                      <p className="text-[#896168] dark:text-zinc-400 text-lg">
+                      <p className="text-[#896168] text-lg">
                         Let's start with the basics of your Valentine's story.
                       </p>
                     </div>
@@ -358,46 +370,44 @@ export default function CreateValentine() {
                     {/* Input Fields Section */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="relative group">
-                        <label className="block text-sm font-bold text-[#181112] dark:text-zinc-300 mb-2 ml-1">
+                        <label className="block text-sm font-bold text-[#181112] mb-2 ml-1">
                           Who is this for? (Recipient)
                         </label>
                         <input
                           name="her_name"
                           value={form.her_name}
                           onChange={handleChange}
-                          className="w-full h-16 px-6 bg-background-light dark:bg-zinc-900 border-2 border-transparent focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-lg outline-none transition-all dark:text-white placeholder:text-zinc-400"
+                          className="w-full h-16 px-6 bg-background-light  border-2 border-primary focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-lg outline-none transition-all placeholder:text-zinc-400"
                           placeholder="e.g. My Queen, Tolu, Adesua"
                           type="text"
                         />
-                        <span className="material-symbols-outlined absolute right-6 top-[52px] text-zinc-300 group-focus-within:text-primary transition-colors">
-                          person_pin
-                        </span>
+                        <div className="absolute right-6 top-13 text-zinc-300 group-focus-within:text-primary transition-colors">
+                          <User />
+                        </div>
                       </div>
                       <div className="relative group">
-                        <label className="block text-sm font-bold text-[#181112] dark:text-zinc-300 mb-2 ml-1">
+                        <label className="block text-sm font-bold text-[#181112] mb-2 ml-1">
                           Who is the sender? (Your Name)
                         </label>
                         <input
                           name="his_name"
                           value={form.his_name}
                           onChange={handleChange}
-                          className="w-full h-16 px-6 bg-background-light dark:bg-zinc-900 border-2 border-transparent focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-lg outline-none transition-all dark:text-white placeholder:text-zinc-400"
+                          className="w-full h-16 px-6 bg-background-light  border-2 border-primary focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-lg outline-none transition-all placeholder:text-zinc-400"
                           placeholder="e.g. Your King, Chidi, Femi"
                           type="text"
                         />
-                        <span className="material-symbols-outlined absolute right-6 top-[52px] text-zinc-300 group-focus-within:text-primary transition-colors">
-                          edit
-                        </span>
+                        <div className="absolute right-6 top-13 text-zinc-300 group-focus-within:text-primary transition-colors">
+                          <Edit />
+                        </div>
                       </div>
                     </div>
 
                     {/* Visual Theme Grid */}
                     <div>
                       <div className="flex items-center gap-2 mb-6">
-                        <span className="material-symbols-outlined text-primary">
-                          palette
-                        </span>
-                        <h2 className="text-[#181112] dark:text-white text-2xl font-bold">
+                        <Palette className="text-primary" />
+                        <h2 className="text-[#181112] text-2xl font-bold">
                           Visual Theme
                         </h2>
                       </div>
@@ -414,22 +424,21 @@ export default function CreateValentine() {
                               className={`aspect-square rounded-lg mb-3 border-4 shadow-md group-hover:shadow-xl transition-all flex items-center justify-center ${
                                 form.theme === theme.id
                                   ? "border-primary"
-                                  : "border-white dark:border-zinc-700"
+                                  : "border-white"
                               }`}
                               style={{ background: theme.color }}
                             >
-                              <span
-                                className={`material-symbols-outlined text-white text-3xl transition-opacity ${
+                              <CheckCircle
+                                className={`text-white transition-opacity ${
                                   form.theme === theme.id
                                     ? "opacity-100"
                                     : "opacity-0 group-hover:opacity-100"
                                 }`}
-                              >
-                                check_circle
-                              </span>
+                                size={32}
+                              />
                             </div>
                             <p
-                              className={`text-center font-bold ${form.theme === theme.id ? "text-primary" : "text-[#181112] dark:text-white"}`}
+                              className={`text-center font-bold ${form.theme === theme.id ? "text-primary" : "text-[#181112]"}`}
                             >
                               {theme.name}
                             </p>
@@ -441,10 +450,8 @@ export default function CreateValentine() {
                     {/* Animation Selector */}
                     <div>
                       <div className="flex items-center gap-2 mb-6">
-                        <span className="material-symbols-outlined text-primary">
-                          auto_awesome
-                        </span>
-                        <h2 className="text-[#181112] dark:text-white text-2xl font-bold">
+                        <Sparkles className="text-primary" />
+                        <h2 className="text-[#181112] text-2xl font-bold">
                           Animation Type
                         </h2>
                       </div>
@@ -462,12 +469,10 @@ export default function CreateValentine() {
                             className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold transition-all border-2 ${
                               form.animation_type === anim.id
                                 ? "bg-primary text-white border-primary shadow-lg shadow-primary/30"
-                                : "bg-background-light dark:bg-zinc-800 text-[#181112] dark:text-white border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-700"
+                                : "bg-background-light text-[#181112] border-primary hover:bg-zinc-100"
                             }`}
                           >
-                            <span className="material-symbols-outlined">
-                              {anim.icon}
-                            </span>
+                            <anim.icon />
                             {anim.name}
                           </button>
                         ))}
@@ -475,11 +480,9 @@ export default function CreateValentine() {
                     </div>
 
                     {/* Step 1 Footer */}
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-[#e6dbdd] dark:border-zinc-800">
-                      <div className="flex items-center gap-2 text-[#896168] dark:text-zinc-400">
-                        <span className="material-symbols-outlined text-sm">
-                          lock
-                        </span>
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-[#e6dbdd]">
+                      <div className="flex items-center gap-2 text-[#896168]">
+                        <Lock size={16} />
                         <span className="text-xs uppercase font-bold tracking-widest">
                           Your data is private
                         </span>
@@ -487,12 +490,10 @@ export default function CreateValentine() {
                       <button
                         type="button"
                         onClick={nextWizardStep}
-                        className="w-full md:w-auto min-w-[280px] h-16 bg-primary text-white text-xl font-extrabold rounded-full flex items-center justify-center gap-3 shadow-xl shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group"
+                        className="w-full md:w-auto min-w-70 h-16 bg-primary text-white text-xl font-extrabold rounded-full flex items-center justify-center gap-3 shadow-xl shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group pointer-events-auto cursor-pointer"
                       >
                         Next: Our Journey
-                        <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
-                          arrow_forward
-                        </span>
+                        <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                       </button>
                     </div>
                   </motion.div>
@@ -504,32 +505,15 @@ export default function CreateValentine() {
                     animate={{ x: 0, opacity: 1 }}
                     className="space-y-12"
                   >
-                    {/* Progress Header */}
-                    <div className="flex flex-col gap-4 bg-white/50 dark:bg-gray-900/50 p-6 rounded-xl border border-primary/5">
-                      <div className="flex items-center justify-between">
-                        <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full uppercase tracking-widest">
-                          Step 02 of 03
-                        </span>
-                        <span className="text-xs font-semibold text-gray-500">
-                          66% Complete
-                        </span>
-                      </div>
-                      <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-primary rounded-full transition-all duration-1000"
-                          style={{ width: "66%" }}
-                        ></div>
-                      </div>
-                      <div>
-                        <h1 className="text-4xl font-black text-[#181112] dark:text-white mb-2">
-                          The Narrative
-                        </h1>
-                        <p className="text-gray-500 dark:text-gray-400 text-base leading-relaxed">
-                          This is where the magic happens. Tell your story in
-                          your own words. Use these fields to craft a message
-                          that will make her heart gbedu.
-                        </p>
-                      </div>
+                    <div>
+                      <h1 className="text-4xl font-black text-[#181112] mb-2">
+                        The Narrative
+                      </h1>
+                      <p className="text-gray-500  text-base leading-relaxed">
+                        This is where the magic happens. Tell your story in your
+                        own words. Use these fields to craft a message that will
+                        make her heart gbedu.
+                      </p>
                     </div>
 
                     {/* Step 2.1: The Hook */}
@@ -538,13 +522,13 @@ export default function CreateValentine() {
                         <span className="flex items-center justify-center size-8 bg-primary text-white rounded-full text-sm font-bold">
                           1
                         </span>
-                        <h3 className="text-xl font-bold dark:text-white">
+                        <h3 className="text-xl font-bold">
                           The Opening Hook
                         </h3>
                       </div>
                       <div className="grid gap-6">
                         <div className="flex flex-col gap-2">
-                          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex justify-between">
+                          <label className="text-sm font-bold text-gray-700  ml-1 flex justify-between">
                             Intro Message (Hero Title)
                             <span className="font-normal text-xs text-gray-400 italic font-serif">
                               Serif Style Preview
@@ -552,19 +536,19 @@ export default function CreateValentine() {
                           </label>
                           <textarea
                             name="intro_message"
-                            className="w-full rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-900 p-4 text-2xl font-serif italic focus:ring-primary focus:border-primary min-h-[140px] dark:text-white outline-none"
+                            className="w-full rounded-xl border-2 border-primary  p-4 text-2xl font-serif italic focus:ring-primary focus:border-primary min-h-35 outline-none"
                             placeholder="e.g., To my Omalicha, the one who makes my world spin..."
                             value={form.intro_message}
                             onChange={handleChange}
                           />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                          <label className="text-sm font-bold text-gray-700  ml-1">
                             Teaser Subtext
                           </label>
                           <input
                             name="intro_subtext"
-                            className="w-full rounded-full border-gray-200 dark:border-gray-800 dark:bg-gray-900 px-6 py-4 text-base focus:ring-primary focus:border-primary dark:text-white outline-none"
+                            className="w-full rounded-full border-2 border-primary px-6 py-4 text-base focus:ring-primary focus:border-primary outline-none"
                             placeholder="A short sentence that appears right under the title."
                             type="text"
                             value={form.intro_subtext}
@@ -581,7 +565,7 @@ export default function CreateValentine() {
                           <span className="flex items-center justify-center size-8 bg-primary text-white rounded-full text-sm font-bold">
                             2
                           </span>
-                          <h3 className="text-xl font-bold dark:text-white">
+                          <h3 className="text-xl font-bold">
                             Reasons I Love You
                           </h3>
                         </div>
@@ -589,7 +573,7 @@ export default function CreateValentine() {
                           Carousel Feature
                         </span>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 ml-11">
+                      <p className="text-sm text-gray-500  ml-11">
                         Add things you love about her. These will scroll
                         beautifully as a carousel on her personalized page.
                       </p>
@@ -598,15 +582,13 @@ export default function CreateValentine() {
                         {form.reasons.map((reason, index) => (
                           <div
                             key={index}
-                            className="group flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-2 pr-4 rounded-full shadow-sm"
+                            className="group flex items-center gap-3 bg-white  border border-gray-100  p-2 pr-4 rounded-full shadow-sm"
                           >
                             <div className="size-8 flex items-center justify-center text-gray-300 cursor-grab">
-                              <span className="material-symbols-outlined text-lg">
-                                drag_indicator
-                              </span>
+                              <GripVertical size={18} />
                             </div>
                             <input
-                              className="flex-1 border-none focus:ring-0 bg-transparent text-gray-800 dark:text-gray-200 p-0 text-sm outline-none"
+                              className="flex-1 border-none focus:ring-0 bg-transparent text-gray-800 p-0 text-sm outline-none"
                               type="text"
                               value={reason}
                               onChange={(e) =>
@@ -617,11 +599,9 @@ export default function CreateValentine() {
                             <button
                               type="button"
                               onClick={() => removeReason(index)}
-                              className="text-gray-300 hover:text-primary transition-colors"
+                              className="text-primary hover:text-primary transition-colors"
                             >
-                              <span className="material-symbols-outlined text-lg">
-                                close
-                              </span>
+                              <X size={18} />
                             </button>
                           </div>
                         ))}
@@ -629,12 +609,10 @@ export default function CreateValentine() {
                         <button
                           type="button"
                           onClick={addReason}
-                          className="w-full group flex items-center gap-3 bg-white dark:bg-gray-900 border-2 border-dashed border-gray-200 dark:border-gray-800 p-2 pr-4 rounded-full transition-colors hover:border-primary/30"
+                          className="w-full group flex items-center gap-3 bg-white  border-2 border-dashed border-gray-200  p-2 pr-4 rounded-full transition-colors hover:border-primary/30"
                         >
                           <div className="size-8 flex items-center justify-center text-gray-300 group-hover:text-primary">
-                            <span className="material-symbols-outlined text-lg">
-                              add_circle
-                            </span>
+                            <PlusCircle size={18} />
                           </div>
                           <span className="text-sm text-gray-400 group-hover:text-primary">
                             Add a new reason...
@@ -648,22 +626,18 @@ export default function CreateValentine() {
                       <button
                         type="button"
                         onClick={prevWizardStep}
-                        className="flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary/20 text-primary font-bold hover:bg-primary/5 transition-colors"
+                        className="flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary/20 text-primary font-bold hover:bg-primary/5 transition-colors cursor-pointer"
                       >
-                        <span className="material-symbols-outlined">
-                          arrow_back
-                        </span>
+                        <ArrowLeft />
                         Previous
                       </button>
                       <button
                         type="button"
                         onClick={nextWizardStep}
-                        className="flex items-center gap-2 px-10 py-3 rounded-full bg-primary text-white font-bold shadow-xl shadow-primary/30 hover:scale-105 transition-transform active:scale-95"
+                        className="flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-white font-bold shadow-xl shadow-primary/30 hover:scale-105 transition-transform active:scale-95 cursor-pointer"
                       >
                         Next: Finalize Magic
-                        <span className="material-symbols-outlined">
-                          arrow_forward
-                        </span>
+                        <ArrowRight />
                       </button>
                     </div>
                   </motion.div>
@@ -676,87 +650,65 @@ export default function CreateValentine() {
                     animate={{ x: 0, opacity: 1 }}
                     className="space-y-12"
                   >
-                    {/* Progress Header */}
-                    <div className="flex flex-col gap-4 bg-white/50 dark:bg-gray-900/50 p-6 rounded-xl border border-primary/5">
-                      <div className="flex items-center justify-between">
-                        <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full uppercase tracking-widest">
-                          Step 03 of 03
-                        </span>
-                        <span className="text-xs font-semibold text-gray-500">
-                          100% Complete
-                        </span>
-                      </div>
-                      <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-primary rounded-full transition-all duration-1000"
-                          style={{ width: "100%" }}
-                        ></div>
-                      </div>
-                      <div>
-                        <h1 className="text-4xl font-black text-[#181112] dark:text-white mb-2">
-                          Vows & Digital Gifts
-                        </h1>
-                        <p className="text-gray-500 dark:text-gray-400 text-base leading-relaxed">
-                          Write your final romantic vow and create custom
-                          digital coupons she can redeem for special treats.
-                        </p>
-                      </div>
+                    <div className="text-center md:text-left">
+                      <h1 className="text-4xl font-black text-[#181112] mb-2">
+                        Vows & Digital Gifts
+                      </h1>
+                      <p className="text-gray-500  text-base leading-relaxed">
+                        Write your final romantic vow and create custom digital
+                        coupons she can redeem for special treats.
+                      </p>
                     </div>
 
                     {/* Vow Section */}
-                    <section className="bg-white dark:bg-[#2d181b] p-8 rounded-xl border border-[#e6dbdd] dark:border-[#3a2226] shadow-sm">
+                    <section className="bg-white p-8 rounded-xl border border-[#e6dbdd] shadow-sm">
                       <div className="flex items-center gap-3 mb-6">
-                        <span className="material-symbols-outlined text-primary">
-                          auto_awesome
-                        </span>
-                        <h3 className="text-xl font-bold dark:text-white">
-                          The Proposal & Vow
+                        <Sparkles className="text-primary" />
+                        <h3 className="text-xl font-bold">
+                          The Success Vow
                         </h3>
                       </div>
                       <div className="grid gap-6">
                         <div className="flex flex-col gap-2">
-                          <label className="text-sm font-semibold mb-1 text-gray-700 dark:text-zinc-300">
-                            The Big Question
-                          </label>
-                          <input
-                            name="question"
-                            type="text"
-                            className="w-full h-12 px-6 bg-[#fdfafb] dark:bg-[#221013] border border-[#e6dbdd] dark:border-[#3a2226] rounded-full text-sm outline-none transition-all dark:text-white focus:border-primary"
-                            placeholder="Will you be my Valentine? 💖"
-                            value={form.question}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <label className="text-sm font-semibold mb-1 text-gray-700 dark:text-zinc-300">
-                            Your Success Vow (Final Message)
+                          <label className="text-sm font-semibold mb-1 text-gray-700">
+                            Your Final Message
                           </label>
                           <textarea
                             name="final_message"
-                            className="w-full rounded-xl border-[#e6dbdd] dark:border-[#3a2226] bg-[#fdfafb] dark:bg-[#221013] focus:ring-primary focus:border-primary p-5 text-base min-h-[160px] dark:text-white outline-none"
+                            className="w-full rounded-xl border-[#e6dbdd]  bg-[#fdfafb] focus:ring-primary focus:border-primary p-5 text-base min-h-40 outline-none"
                             placeholder="e.g., To my forever Valentine, Omalicha, I promise to always be your peace and to love you more with every sunrise..."
                             value={form.final_message}
                             onChange={handleChange}
                           />
-                          <p className="mt-1 text-xs text-[#896168] dark:text-[#c0a2a7]">
+                          <p className="mt-1 text-xs text-[#896168]">
                             This message appears when she finishes exploring the
                             page.
                           </p>
+                        </div>
+                        {/* Hidden question field as it's not in the design but in state - keeping logic */}
+                        <div className="hidden">
+                          <input
+                            name="question"
+                            value={form.question}
+                            onChange={handleChange}
+                          />
                         </div>
                       </div>
                     </section>
 
                     {/* Coupons Section */}
-                    <section className="bg-white dark:bg-[#2d181b] p-8 rounded-xl border border-[#e6dbdd] dark:border-[#3a2226] shadow-sm">
+                    <section className="bg-white p-8 rounded-xl border border-[#e6dbdd]  shadow-sm">
                       <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
-                          <span className="material-symbols-outlined text-primary">
-                            confirmation_number
-                          </span>
-                          <h3 className="text-xl font-bold dark:text-white">
+                          <Ticket className="text-primary" />
+                          <h3 className="text-xl font-bold">
                             Digital Gift Coupons
                           </h3>
                         </div>
+                        <button className="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                          <Info size={16} />
+                          How do they work?
+                        </button>
                       </div>
 
                       <div className="space-y-4">
@@ -786,13 +738,13 @@ export default function CreateValentine() {
                                   emojis[nextIdx],
                                 );
                               }}
-                              className="size-12 rounded-full bg-white dark:bg-[#221013] border border-[#e6dbdd] dark:border-[#3a2226] flex items-center justify-center text-2xl shadow-sm hover:scale-105 transition-transform"
+                              className="size-12 rounded-full bg-white border border-[#e6dbdd]  flex items-center justify-center text-2xl shadow-sm hover:scale-105 transition-transform"
                             >
                               {gift.icon}
                             </button>
                             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                               <input
-                                className="w-full bg-white dark:bg-[#221013] border-[#e6dbdd] dark:border-[#3a2226] rounded-lg text-sm font-bold dark:text-white"
+                                className="w-full bg-white border-[#e6dbdd]  rounded-lg text-sm font-bold"
                                 placeholder="Coupon Title"
                                 type="text"
                                 value={gift.title}
@@ -805,7 +757,7 @@ export default function CreateValentine() {
                                 }
                               />
                               <input
-                                className="w-full bg-white dark:bg-[#221013] border-[#e6dbdd] dark:border-[#3a2226] rounded-lg text-sm dark:text-zinc-400"
+                                className="w-full bg-white border-[#e6dbdd]  rounded-lg text-sm"
                                 placeholder="Short description"
                                 type="text"
                                 value={gift.desc}
@@ -823,9 +775,7 @@ export default function CreateValentine() {
                               onClick={() => removeGift(gift.id)}
                               className="text-[#896168] hover:text-primary p-2 transition-colors"
                             >
-                              <span className="material-symbols-outlined">
-                                delete
-                              </span>
+                              <Trash2 size={18} />
                             </button>
                           </div>
                         ))}
@@ -833,29 +783,25 @@ export default function CreateValentine() {
                         <button
                           type="button"
                           onClick={addGift}
-                          className="w-full py-4 border-2 border-dashed border-[#e6dbdd] dark:border-[#3a2226] rounded-xl text-[#896168] font-semibold flex items-center justify-center gap-2 hover:bg-background-light dark:hover:bg-background-dark/30 transition-colors"
+                          className="w-full py-4 border-2 border-dashed border-[#e6dbdd]  rounded-xl text-[#896168] font-semibold flex items-center justify-center gap-2 hover:bg-background-light transition-colors"
                         >
-                          <span className="material-symbols-outlined">
-                            add_circle
-                          </span>
+                          <PlusCircle size={20} />
                           Add Another Coupon
                         </button>
                       </div>
                     </section>
 
                     {/* Final Touches: Music & Email */}
-                    <section className="bg-white dark:bg-[#2d181b] p-8 rounded-xl border border-[#e6dbdd] dark:border-[#3a2226] shadow-sm">
+                    <section className="bg-white p-8 rounded-xl border border-[#e6dbdd]  shadow-sm">
                       <div className="flex items-center gap-3 mb-6">
-                        <span className="material-symbols-outlined text-primary">
-                          tune
-                        </span>
-                        <h3 className="text-xl font-bold dark:text-white">
+                        <Sliders className="text-primary" />
+                        <h3 className="text-xl font-bold">
                           The Final Details
                         </h3>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-2">
-                          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                          <label className="text-sm font-bold text-gray-700  ml-1">
                             Soundtrack
                           </label>
                           <div className="flex gap-3">
@@ -863,7 +809,7 @@ export default function CreateValentine() {
                               name="music_id"
                               value={form.music_id}
                               onChange={handleChange}
-                              className="flex-1 h-12 px-4 bg-[#fdfafb] dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-full text-sm outline-none transition-all dark:text-white appearance-none cursor-pointer"
+                              className="flex-1 h-12 px-4 bg-[#fdfafb]  border border-gray-200  focus:border-primary focus:ring-1 focus:ring-primary rounded-full text-sm outline-none transition-all appearance-none cursor-pointer"
                             >
                               {MUSIC.map((track) => (
                                 <option key={track.id} value={track.id}>
@@ -877,23 +823,25 @@ export default function CreateValentine() {
                               className={`size-12 rounded-full flex items-center justify-center transition-all shadow-md ${
                                 playMusic
                                   ? "bg-primary text-white"
-                                  : "bg-white dark:bg-zinc-800 text-primary border border-primary/20"
+                                  : "bg-white text-primary border border-primary/20"
                               }`}
                             >
-                              <span className="material-symbols-outlined">
-                                {playMusic ? "stop" : "play_arrow"}
-                              </span>
+                              {playMusic ? (
+                                <Square className="fill-current" size={16} />
+                              ) : (
+                                <Play size={20} className="fill-current" />
+                              )}
                             </button>
                           </div>
                         </div>
                         <div className="space-y-2">
-                          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                          <label className="text-sm font-bold text-gray-700  ml-1">
                             Your Email
                           </label>
                           <input
                             name="email"
                             type="email"
-                            className="w-full h-12 px-6 bg-[#fdfafb] dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-full text-sm outline-none transition-all dark:text-white"
+                            className="w-full h-12 px-6 bg-[#fdfafb]  border border-gray-200  focus:border-primary focus:ring-1 focus:ring-primary rounded-full text-sm outline-none transition-all"
                             placeholder="To receive your unique link"
                             value={form.email}
                             onChange={handleChange}
@@ -905,21 +853,16 @@ export default function CreateValentine() {
 
                     {/* Payment Summary Card */}
                     <div className="mt-12 p-px bg-linear-to-r from-primary/40 to-[#ff7e93] rounded-xl overflow-hidden">
-                      <div className="bg-white dark:bg-[#2d181b] p-8 rounded-[0.9rem] flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div className="bg-white p-8 rounded-[0.9rem] flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="flex items-center gap-4">
                           <div className="size-16 bg-primary/10 rounded-full flex items-center justify-center">
-                            <span
-                              className="material-symbols-outlined text-3xl text-primary"
-                              style={{ fontVariationSettings: "'FILL' 1" }}
-                            >
-                              rocket_launch
-                            </span>
+                            <Rocket className="text-primary" size={32} />
                           </div>
                           <div className="text-left">
-                            <h4 className="text-xl font-extrabold dark:text-white">
+                            <h4 className="text-xl font-extrabold">
                               Final Package
                             </h4>
-                            <p className="text-sm text-[#896168] dark:text-[#c0a2a7]">
+                            <p className="text-sm text-[#896168]">
                               Live URL till Feb. 15th 2026 + All premium
                               features
                             </p>
@@ -929,7 +872,7 @@ export default function CreateValentine() {
                           <span className="text-3xl font-black block text-primary">
                             ₦1,000
                           </span>
-                          <span className="text-xs text-[#896168] dark:text-[#c0a2a7] uppercase tracking-tighter">
+                          <span className="text-xs text-[#896168] uppercase tracking-tighter">
                             One-time payment
                           </span>
                         </div>
@@ -937,16 +880,14 @@ export default function CreateValentine() {
                     </div>
 
                     {/* Pay Button Area */}
-                    <div className="flex flex-col items-center gap-8 pt-4">
+                    <div className="flex flex-col items-center gap-8 pt-4 pb-20">
                       <button
                         type="submit"
                         disabled={loading}
-                        className="w-full max-w-md py-5 bg-primary text-white text-lg font-black rounded-full shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="w-full max-w-md py-5 bg-primary text-white text-lg font-black rounded-full shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
                       >
                         {loading ? "Designing Magic..." : "Pay & Generate Link"}
-                        <span className="material-symbols-outlined">
-                          arrow_forward
-                        </span>
+                        <ArrowRight />
                       </button>
 
                       <div className="flex flex-col items-center gap-4">
@@ -967,22 +908,18 @@ export default function CreateValentine() {
                             className="h-6"
                           />
                         </div>
-                        <p className="text-[10px] font-bold text-[#896168] dark:text-[#c0a2a7] flex items-center gap-1 uppercase tracking-[0.2em]">
-                          <span className="material-symbols-outlined text-xs">
-                            lock
-                          </span>
-                          Secured by Paystack
+                        <p className="text-[10px] font-bold text-[#896168] flex items-center gap-1 uppercase tracking-[0.2em]">
+                          <Lock size={12} />
+                          Secured by Flutterwave
                         </p>
                       </div>
 
                       <button
                         type="button"
                         onClick={prevWizardStep}
-                        className="text-[#896168] dark:text-zinc-500 font-bold hover:text-primary transition-colors flex items-center gap-2"
+                        className="text-[#896168] font-bold hover:text-primary transition-colors flex items-center gap-2"
                       >
-                        <span className="material-symbols-outlined text-sm">
-                          arrow_back
-                        </span>
+                        <ArrowLeft size={16} />
                         Go back to edit
                       </button>
                     </div>
@@ -992,18 +929,69 @@ export default function CreateValentine() {
             </div>
           </div>
 
-          {/* Footer Quote */}
-          <div className="mt-12 text-center text-[#896168] dark:text-zinc-500 opacity-60">
-            <p className="text-sm font-bold">
-              Made with{" "}
-              <span className="text-primary inline-block align-middle">
-                <span className="material-symbols-outlined text-sm">
-                  favorite
-                </span>
-              </span>{" "}
-              for Nigerian Love Stories
-            </p>
-          </div>
+          {/* Right Column: Live Preview Sticky (Only for Step 2) */}
+          {wizardStep === 2 && (
+            <div className="lg:w-85 hidden lg:block">
+              <div className="sticky top-32 flex flex-col gap-6">
+                <div className="relative w-full aspect-9/16 bg-pink-50 rounded-xl overflow-hidden shadow-2xl border-4 border-white">
+                  {/* Phone Interface Mock */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                    <div className="w-full h-full bg-white/40 backdrop-blur-[2px] rounded-lg p-4 flex flex-col justify-center gap-4">
+                      <div className="text-xs uppercase tracking-widest text-primary font-bold">
+                        Preview
+                      </div>
+                      <h4 className="font-serif italic text-2xl text-[#181112] leading-tight">
+                        "{form.intro_message || "To my Omalicha..."}"
+                      </h4>
+                      <div className="h-px w-12 bg-primary mx-auto"></div>
+                      {/* Carousel Preview Mock */}
+                      <div className="mt-8 relative overflow-hidden h-32 flex items-center justify-center">
+                        <div className="w-full p-4 rounded-xl bg-white  shadow-sm border border-primary/10 transform -rotate-1">
+                          <p className="text-[11px] text-gray-600  italic">
+                            "
+                            {form.reasons[0] ||
+                              "The way you laugh at my dry jokes..."}
+                            "
+                          </p>
+                          <div className="mt-2 flex justify-center gap-1">
+                            <div className="size-1 bg-primary rounded-full"></div>
+                            <div className="size-1 bg-primary/20 rounded-full"></div>
+                            <div className="size-1 bg-primary/20 rounded-full"></div>
+                          </div>
+                        </div>
+                        {/* Peek of next slide */}
+                        <div className="absolute -right-20 opacity-30 transform rotate-2 w-full p-4 rounded-xl bg-white  border border-primary/10">
+                          <p className="text-[11px]">Next reason...</p>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Background Decoration */}
+                    <div className="absolute top-10 right-10 text-primary/10 select-none">
+                      <Heart size={100} />
+                    </div>
+                    <div className="absolute bottom-10 left-10 text-primary/10 select-none scale-x-[-1]">
+                      <Heart size={100} />
+                    </div>
+                  </div>
+                  <img
+                    className="absolute inset-0 w-full h-full object-cover opacity-20"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXFZ9-rDjAfO-C5gWSeRNodGDj8z7QYNY-fKn-K9cAsdY1qJ9Ojsc48yoj3-cz4svgkQYFBft7dDa07_COgfHdIyEZ5IVq_OBG29eSNtGxMEB2oRrrdjtckoRn9QkrhMFXQKg6rlcqOzAMtL3NzU66sJY3Y5IEKsvaNzG_iIdFgzri-C0uhFrhCmlcSwtuSadHHWI5zoSWsYUoQpALolQkAb99_lG3tgd1dcv62XLbBoD68PwdPv58tPNEYTYX2GYVgK_EJZR8OD4"
+                    alt="Background"
+                  />
+                </div>
+                <div className="bg-primary/5 p-4 rounded-xl border border-primary/10">
+                  <div className="flex items-start gap-3">
+                    <Lightbulb className="text-primary text-xl" />
+                    <p className="text-xs text-[#896168]  leading-relaxed">
+                      <strong>Tip:</strong> Women love sincerity! Try to mention
+                      specific details about your relationship that only you two
+                      know.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}         
         </main>
       </div>
     </ThemeWrapper>
