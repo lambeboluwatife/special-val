@@ -20,6 +20,9 @@ import {
   PartyPopper,
   CheckCircle2,
   BadgeCheck,
+  Share2,
+  Copy,
+  Check,
 } from "lucide-react";
 
 // --- Animation Components ---
@@ -73,8 +76,35 @@ export default function ValentineContent({ valentine }) {
     days: 0,
     hours: 0,
     mins: 0,
+    mins: 0,
     secs: 0,
   });
+  const [copied, setCopied] = useState(false);
+
+  // Share Logic
+  const handleShare = async () => {
+    const shareData = {
+      title: `For ${valentine?.her_name || "My Love"} 💖`,
+      text: "I have a special Valentine message for you...",
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log("Error sharing:", err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.log("Error copying:", err);
+      }
+    }
+  };
 
   // Countdown Logic
   useEffect(() => {
@@ -168,7 +198,21 @@ export default function ValentineContent({ valentine }) {
         <BackgroundMusic trackId={valentine?.music_id} />
         <Hearts type={valentine?.animation_type} />
         <HeartCursor />
+        <Hearts type={valentine?.animation_type} />
+        <HeartCursor />
         <AmbientBackground />
+
+        {/* Share Button */}
+        <button
+          onClick={handleShare}
+          className="fixed top-4 right-4 z-50 bg-white/30 backdrop-blur-md border border-white/40 p-3 rounded-full text-primary shadow-lg hover:bg-white/50 transition-all hover:scale-105 active:scale-95 group"
+          title="Share this page"
+        > 
+          {copied ? <Check size={24} /> : <Share2 size={24} />}
+          <span className="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-black/75 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            {copied ? "Link Copied!" : "Share"}
+          </span>
+        </button>
 
         {/* --- Progress Indicator --- */}
         {!isFinal && (

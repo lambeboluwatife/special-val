@@ -536,7 +536,7 @@ export default function CreateValentine() {
                           </label>
                           <textarea
                             name="intro_message"
-                            className="w-full rounded-xl border-2 border-primary  p-4 text-lg md:text-2xl font-serif italic focus:ring-primary focus:border-primary min-h-35 outline-none"
+                            className="w-full rounded-xl border-2 border-primary  p-4 text-sm md:text-base font-serif italic focus:ring-primary focus:border-primary min-h-35 outline-none"
                             placeholder="e.g., To my Omalicha, the one who makes my world spin..."
                             value={form.intro_message}
                             onChange={handleChange}
@@ -653,8 +653,7 @@ export default function CreateValentine() {
                         Vows & Digital Gifts
                       </h1>
                       <p className="text-gray-500  text-base leading-relaxed">
-                        Write your final romantic vow and create custom digital
-                        coupons she can redeem for special treats.
+                        Write your final romantic vow and romantic gifts or things to do for your partner.
                       </p>
                     </div>
 
