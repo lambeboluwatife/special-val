@@ -427,7 +427,7 @@ export default function ValentineContent({ valentine }) {
             <div className="fixed inset-0 z-50 bg-gray-50 overflow-y-auto custom-scrollbar flex flex-col items-center animate-in fade-in duration-500">
                 <Hearts type={valentine?.animation_type} />
                 <AmbientBackground />
-                <main className="relative z-10 flex-1 w-full max-w-500 px-4 md:px-12 lg:px-24 py-12 flex flex-col items-center">
+                <main className="relative z-10 flex-1 w-full max-w-5xl px-4 md:px-12 lg:px-24 py-12 flex flex-col items-center">
                     {/* Hero Section */}
                     <div className="text-center mb-16 max-w-4xl mx-auto">
                         <div className="inline-block bg-primary/10 text-primary font-bold px-4 py-1 rounded-full text-xs uppercase tracking-widest mb-4">
@@ -450,7 +450,6 @@ export default function ValentineContent({ valentine }) {
                                         🎁
                                 </div>
                                 <div className="grow text-center md:text-left">
-                                    <span className="font-bold text-primary text-sm tracking-widest uppercase mb-2 block">Token #{index + 1}</span>
                                     <h3 className="font-sans text-2xl md:text-3xl font-bold mb-3 text-slate-800">{gift.title || "Special Gift"}</h3>
                                     <p className="font-serif text-lg text-slate-600 mb-6 italic leading-relaxed">
                                         "{gift.description || "Something special just for you..."}"

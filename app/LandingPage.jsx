@@ -22,14 +22,14 @@ export default function LandingPage() {
   return (
     <>
       {/* Decorative Elements */}
-      <div className="floating-heart top-20 left-10 text-primary">
+      <div className="hidden lg:block floating-heart top-20 left-10 text-primary">
         <Heart size={130} />
       </div>
-      <div className="floating-heart bottom-20 right-10 text-primary rotate-12">
+      <div className="hidden lg:block floating-heart bottom-20 right-10 text-primary rotate-12">
         <Heart size={150} />
       </div>
 
-      <div className="relative min-h-screen flex flex-col">
+      <div className="relative min-h-screen flex flex-col overflow-x-hidden">
        <Header />
 
         {/* Hero Section */}
@@ -37,7 +37,7 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="flex flex-col gap-8 z-10">
               <div className="space-y-6">
-                <h1 className="font-serif font-bold text-5xl md:text-7xl leading-tight text-[#181112] italic">
+                <h1 className="font-serif font-bold text-4xl md:text-5xl lg:text-7xl leading-tight text-[#181112] italic">
                   Ask Her to Be Your{" "}
                   <span className="text-primary not-italic">Valentine</span>, In
                   a Way She’ll Never Forget 💖
@@ -50,7 +50,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/create"
-                  className="bg-primary text-white text-lg font-bold px-10 py-5 rounded-full premium-glow hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  className="bg-primary text-white text-base md:text-lg font-bold px-10 py-5 rounded-full premium-glow hover:scale-105 transition-all flex items-center justify-center gap-2"
                 >
                   <span>Create Your Valentine Page</span>
                   <ArrowRight size={24} />
@@ -68,7 +68,7 @@ export default function LandingPage() {
             <div className="relative flex justify-center">
               <div className="absolute -inset-4 bg-primary/10 rounded-xl blur-3xl"></div>
               {/* Phone Mockup */}
-              <div className="relative w-70 h-145 bg-black rounded-[3rem] p-3 border-[6px] border-[#333] shadow-2xl">
+              <div className="relative w-full max-w-70 sm:max-w-[320px] aspect-9/19 bg-black rounded-[2.5rem] md:rounded-[3rem] p-3 border-[6px] border-[#333] shadow-2xl mx-auto">
                 <div className="w-full h-full bg-white rounded-[2.2rem] overflow-hidden relative">
                   <div className="absolute top-0 w-full h-6 bg-transparent flex justify-center pt-2">
                     <div className="w-16 h-4 bg-black/90 rounded-full"></div>
@@ -107,7 +107,7 @@ export default function LandingPage() {
         {/* How It Works Section */}
         <section
           id="how-it-works"
-          className="py-24 bg-white/50 dark:bg-white/5 px-6"
+          className="md:py-24 bg-white/50 dark:bg-white/5 px-6"
         >
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 space-y-4">
@@ -167,7 +167,7 @@ export default function LandingPage() {
             </div>
             <div className="flex items-center justify-center gap-8">              
               {/* Premium Card */}
-              <div className="bg-white w-1/2 p-10 rounded-xl border-2 border-primary flex flex-col gap-8 shadow-xl relative scale-105 z-10">
+              <div className="bg-white w-full max-w-sm p-8 rounded-xl border-2 border-primary flex flex-col gap-6 shadow-xl relative md:scale-105 z-10 transition-transform">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-full">
                   Most Popular
                 </div>

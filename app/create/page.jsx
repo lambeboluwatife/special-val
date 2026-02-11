@@ -300,7 +300,7 @@ export default function CreateValentine() {
     <Header  />
 
         <main
-          className={`w-full max-w-300 px-4 py-8 relative z-10 mt-20 flex flex-col ${wizardStep === 2 ? "lg:flex-row gap-10" : "items-center"}`}
+          className={`w-full max-w-7xl px-4 py-8 relative z-10 mt-20 flex flex-col ${wizardStep === 2 ? "lg:flex-row gap-10" : "items-center"}`}
         >
           <div
             className={
@@ -377,7 +377,7 @@ export default function CreateValentine() {
                           name="her_name"
                           value={form.her_name}
                           onChange={handleChange}
-                          className="w-full h-16 px-6 bg-background-light  border-2 border-primary focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-lg outline-none transition-all placeholder:text-zinc-400"
+                          className="w-full h-16 px-6 bg-background-light  border-2 border-primary focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-base md:text-lg outline-none transition-all placeholder:text-zinc-400"
                           placeholder="e.g. My Queen, Tolu, Adesua"
                           type="text"
                         />
@@ -393,7 +393,7 @@ export default function CreateValentine() {
                           name="his_name"
                           value={form.his_name}
                           onChange={handleChange}
-                          className="w-full h-16 px-6 bg-background-light  border-2 border-primary focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-lg outline-none transition-all placeholder:text-zinc-400"
+                          className="w-full h-16 px-6 bg-background-light  border-2 border-primary focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-full text-base md:text-lg outline-none transition-all placeholder:text-zinc-400"
                           placeholder="e.g. Your King, Chidi, Femi"
                           type="text"
                         />
@@ -536,7 +536,7 @@ export default function CreateValentine() {
                           </label>
                           <textarea
                             name="intro_message"
-                            className="w-full rounded-xl border-2 border-primary  p-4 text-2xl font-serif italic focus:ring-primary focus:border-primary min-h-35 outline-none"
+                            className="w-full rounded-xl border-2 border-primary  p-4 text-lg md:text-2xl font-serif italic focus:ring-primary focus:border-primary min-h-35 outline-none"
                             placeholder="e.g., To my Omalicha, the one who makes my world spin..."
                             value={form.intro_message}
                             onChange={handleChange}
@@ -548,7 +548,7 @@ export default function CreateValentine() {
                           </label>
                           <input
                             name="intro_subtext"
-                            className="w-full rounded-full border-2 border-primary px-6 py-4 text-base focus:ring-primary focus:border-primary outline-none"
+                            className="w-full rounded-full border-2 border-primary px-6 py-4 text-sm md:text-base focus:ring-primary focus:border-primary outline-none"
                             placeholder="A short sentence that appears right under the title."
                             type="text"
                             value={form.intro_subtext}
@@ -569,16 +569,14 @@ export default function CreateValentine() {
                             Reasons I Love You
                           </h3>
                         </div>
-                        <span className="text-xs font-medium text-primary bg-primary/5 px-2 py-1 rounded-md">
-                          Carousel Feature
-                        </span>
+                       
                       </div>
-                      <p className="text-sm text-gray-500  ml-11">
+                      <p className="text-sm text-gray-500">
                         Add things you love about her. These will scroll
                         beautifully as a carousel on her personalized page.
                       </p>
 
-                      <div className="ml-11 space-y-3">
+                      <div className="space-y-3">
                         {form.reasons.map((reason, index) => (
                           <div
                             key={index}
@@ -622,11 +620,11 @@ export default function CreateValentine() {
                     </section>
 
                     {/* Step 2 Footer */}
-                    <div className="flex items-center justify-between pt-10 border-t border-primary/10">
+                    <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-4 pt-10 border-t border-primary/10">
                       <button
                         type="button"
                         onClick={prevWizardStep}
-                        className="flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary/20 text-primary font-bold hover:bg-primary/5 transition-colors cursor-pointer"
+                        className="w-full md:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-full border-2 border-primary/20 text-primary font-bold hover:bg-primary/5 transition-colors cursor-pointer"
                       >
                         <ArrowLeft />
                         Previous
@@ -634,7 +632,7 @@ export default function CreateValentine() {
                       <button
                         type="button"
                         onClick={nextWizardStep}
-                        className="flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-white font-bold shadow-xl shadow-primary/30 hover:scale-105 transition-transform active:scale-95 cursor-pointer"
+                        className="w-full md:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-primary text-white font-bold shadow-xl shadow-primary/30 hover:scale-105 transition-transform active:scale-95 cursor-pointer"
                       >
                         Next: Finalize Magic
                         <ArrowRight />
@@ -661,7 +659,7 @@ export default function CreateValentine() {
                     </div>
 
                     {/* Vow Section */}
-                    <section className="bg-white p-8 rounded-xl border border-[#e6dbdd] shadow-sm">
+                    <section className="bg-white p-4 md:p-8 rounded-xl border border-[#e6dbdd] shadow-sm">
                       <div className="flex items-center gap-3 mb-6">
                         <Sparkles className="text-primary" />
                         <h3 className="text-xl font-bold">
@@ -675,7 +673,7 @@ export default function CreateValentine() {
                           </label>
                           <textarea
                             name="final_message"
-                            className="w-full rounded-xl border-[#e6dbdd]  bg-[#fdfafb] focus:ring-primary focus:border-primary p-5 text-base min-h-40 outline-none"
+                            className="w-full rounded-xl border-[#e6dbdd]  bg-[#fdfafb] focus:ring-primary focus:border-primary p-5 text-sm md:text-base min-h-40 outline-none"
                             placeholder="e.g., To my forever Valentine, Omalicha, I promise to always be your peace and to love you more with every sunrise..."
                             value={form.final_message}
                             onChange={handleChange}
@@ -697,18 +695,14 @@ export default function CreateValentine() {
                     </section>
 
                     {/* Coupons Section */}
-                    <section className="bg-white p-8 rounded-xl border border-[#e6dbdd]  shadow-sm">
+                    <section className="bg-white p-4 md:p-8 rounded-xl border border-[#e6dbdd]  shadow-sm">
                       <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                           <Ticket className="text-primary" />
                           <h3 className="text-xl font-bold">
-                            Digital Gift Coupons
+                            Digital Gifts
                           </h3>
                         </div>
-                        <button className="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
-                          <Info size={16} />
-                          How do they work?
-                        </button>
                       </div>
 
                       <div className="space-y-4">
@@ -792,7 +786,7 @@ export default function CreateValentine() {
                     </section>
 
                     {/* Final Touches: Music & Email */}
-                    <section className="bg-white p-8 rounded-xl border border-[#e6dbdd]  shadow-sm">
+                    <section className="bg-white p-4 md:p-8 rounded-xl border border-[#e6dbdd]  shadow-sm">
                       <div className="flex items-center gap-3 mb-6">
                         <Sliders className="text-primary" />
                         <h3 className="text-xl font-bold">
@@ -853,7 +847,7 @@ export default function CreateValentine() {
 
                     {/* Payment Summary Card */}
                     <div className="mt-12 p-px bg-linear-to-r from-primary/40 to-[#ff7e93] rounded-xl overflow-hidden">
-                      <div className="bg-white p-8 rounded-[0.9rem] flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div className="bg-white p-4 md:p-8 rounded-[0.9rem] flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="flex items-center gap-4">
                           <div className="size-16 bg-primary/10 rounded-full flex items-center justify-center">
                             <Rocket className="text-primary" size={32} />
