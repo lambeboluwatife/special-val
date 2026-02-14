@@ -193,7 +193,94 @@ export default function CreateValentine() {
   const nextWizardStep = () => setWizardStep((prev) => Math.min(prev + 1, 3));
   const prevWizardStep = () => setWizardStep((prev) => Math.max(prev - 1, 1));
 
-  const handlePay = (e) => {
+  // const handlePay = (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError("");
+
+  //   // Validation
+  //   if (!form.her_name || !form.his_name) {
+  //     setError("Both names are required.");
+  //     setLoading(false);
+  //     setWizardStep(1);
+  //     return;
+  //   }
+
+  //   if (!form.email) {
+  //     setError("Email is required for payment.");
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   if (!process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY) {
+  //     setError("Payment system not configured. Please contact support.");
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   if (!flutterwaveLoaded || !window.FlutterwaveCheckout) {
+  //     setError("Payment system is loading. Please try again in a moment.");
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   const payload = {
+  //     ...form,
+  //     reasons: form.reasons.filter((r) => r.trim() !== ""),
+  //     gifts: gifts.filter((g) => g.title.trim() !== ""),
+  //   };
+
+  //   // Use Flutterwave Inline
+  //   window.FlutterwaveCheckout({
+  //     public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
+  //     tx_ref: `val-${Date.now()}`,
+  //     amount: 1000,
+  //     currency: "NGN",
+  //     payment_options: "card,banktransfer,ussd",
+  //     customer: {
+  //       email: form.email,
+  //       name: form.his_name,
+  //     },
+  //     customizations: {
+  //       title: "Valentine Page",
+  //       description: "Create a personalized Valentine page 💖",
+  //       logo: "",
+  //     },
+  //     callback: async (response) => {
+  //       console.log("Payment response:", response);
+
+  //       try {
+  //         const res = await fetch("/api/verify-payment", {
+  //           method: "POST",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify({
+  //             transaction_id: response.transaction_id,
+  //             payload,
+  //           }),
+  //         });
+
+  //         const data = await res.json();
+
+  //         if (!res.ok) {
+  //           throw new Error(data.error || "Payment verification failed");
+  //         }
+
+  //         router.push(`/valentine/${data.slug}`);
+  //       } catch (err) {
+  //         console.error("Verification error:", err);
+  //         setError(err.message || "Payment verification failed");
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     },
+  //     onclose: () => {
+  //       console.log("Payment modal closed");
+  //       setLoading(false);
+  //     },
+  //   });
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -212,78 +299,37 @@ export default function CreateValentine() {
       return;
     }
 
-    if (!process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY) {
-      setError("Payment system not configured. Please contact support.");
-      setLoading(false);
-      return;
-    }
-
-    if (!flutterwaveLoaded || !window.FlutterwaveCheckout) {
-      setError("Payment system is loading. Please try again in a moment.");
-      setLoading(false);
-      return;
-    }
-
     const payload = {
       ...form,
       reasons: form.reasons.filter((r) => r.trim() !== ""),
       gifts: gifts.filter((g) => g.title.trim() !== ""),
     };
 
-    // Use Flutterwave Inline
-    window.FlutterwaveCheckout({
-      public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
-      tx_ref: `val-${Date.now()}`,
-      amount: 1000,
-      currency: "NGN",
-      payment_options: "card,banktransfer,ussd",
-      customer: {
-        email: form.email,
-        name: form.his_name,
-      },
-      customizations: {
-        title: "Valentine Page",
-        description: "Create a personalized Valentine page 💖",
-        logo: "",
-      },
-      callback: async (response) => {
-        console.log("Payment response:", response);
+    try {
+      const res = await fetch("/api/create-valentine", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-        try {
-          const res = await fetch("/api/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              transaction_id: response.transaction_id,
-              payload,
-            }),
-          });
+      const data = await res.json();
 
-          const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to create Valentine page");
+      }
 
-          if (!res.ok) {
-            throw new Error(data.error || "Payment verification failed");
-          }
-
-          router.push(`/valentine/${data.slug}`);
-        } catch (err) {
-          console.error("Verification error:", err);
-          setError(err.message || "Payment verification failed");
-        } finally {
-          setLoading(false);
-        }
-      },
-      onclose: () => {
-        console.log("Payment modal closed");
-        setLoading(false);
-      },
-    });
+      router.push(`/valentine/${data.slug}`);
+    } catch (error) {
+      console.error("Error creating Valentine page:", error);
+      setError(error.message || "Failed to create Valentine page");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <ThemeWrapper theme={form.theme}>
-      {/* Load Flutterwave Inline Script */}
-      <Script
+      {/* <Script
         src="https://checkout.flutterwave.com/v3.js"
         strategy="afterInteractive"
         onLoad={() => {
@@ -294,7 +340,7 @@ export default function CreateValentine() {
           console.error("Failed to load Flutterwave script");
           setError("Payment system failed to load. Please refresh the page.");
         }}
-      />
+      /> */}
 
       <div className="min-h-screen bg-white font-display flex flex-col items-center">
         <Header />
@@ -350,7 +396,7 @@ export default function CreateValentine() {
                 </motion.div>
               )}
 
-              <form onSubmit={handlePay}>
+              <form onSubmit={handleSubmit}>
                 {wizardStep === 1 && (
                   <motion.div
                     initial={{ x: 20, opacity: 0 }}
