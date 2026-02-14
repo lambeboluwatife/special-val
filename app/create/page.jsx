@@ -7,6 +7,30 @@ import Script from "next/script";
 import ThemeWrapper from "../components/ThemeWrapper";
 import Hearts from "../components/Hearts";
 import BackgroundMusic from "../components/BackgroundMusic";
+import {
+  Heart,
+  Palette,
+  Sparkles,
+  User,
+  Edit3,
+  CheckCircle2,
+  Lock,
+  ArrowRight,
+  ArrowLeft,
+  GripVertical,
+  X,
+  PlusCircle,
+  Ticket,
+  Trash2,
+  Music,
+  Mail,
+  BadgeCheck,
+  Rocket,
+  ShieldCheck,
+  Star,
+  Leaf,
+  BookOpen,
+} from "lucide-react";
 
 const THEMES = [
   {
@@ -40,9 +64,9 @@ const MUSIC = [
 ];
 
 const ANIMATIONS = [
-  { id: "hearts", name: "Hearts", icon: "favorite" },
-  { id: "stars", name: "Stars", icon: "star" },
-  { id: "petals", name: "Petals", icon: "eco" },
+  { id: "hearts", name: "Hearts", icon: Heart },
+  { id: "stars", name: "Stars", icon: Star },
+  { id: "petals", name: "Petals", icon: Leaf },
 ];
 
 export default function CreateValentine() {
@@ -233,9 +257,9 @@ export default function CreateValentine() {
   };
 
   const wizardTabs = [
-    { id: 1, name: "The Identity", icon: "favorite" },
-    { id: 2, name: "Our Journey", icon: "auto_stories" },
-    { id: 3, name: "Finalize Magic", icon: "auto_awesome" },
+    { id: 1, name: "The Identity", icon: Heart },
+    { id: 2, name: "Our Journey", icon: BookOpen },
+    { id: 3, name: "Finalize Magic", icon: Sparkles },
   ];
 
   return (
@@ -259,9 +283,7 @@ export default function CreateValentine() {
         <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50 w-full">
           <div className="flex items-center gap-4 text-primary">
             <div className="size-8 flex items-center justify-center bg-primary/10 rounded-full">
-              <span className="material-symbols-outlined text-primary">
-                favorite
-              </span>
+              <Heart size={18} className="text-primary fill-primary" />
             </div>
             <h2 className="text-[#181112] dark:text-white text-lg font-bold leading-tight tracking-tight">
               Omo Mi Builder
@@ -369,9 +391,10 @@ export default function CreateValentine() {
                           placeholder="e.g. My Queen, Tolu, Adesua"
                           type="text"
                         />
-                        <span className="material-symbols-outlined absolute right-6 top-[52px] text-zinc-300 group-focus-within:text-primary transition-colors">
-                          person_pin
-                        </span>
+                        <User
+                          className="absolute right-6 top-[52px] text-zinc-300 group-focus-within:text-primary transition-colors"
+                          size={20}
+                        />
                       </div>
                       <div className="relative group">
                         <label className="block text-sm font-bold text-[#181112] dark:text-zinc-300 mb-2 ml-1">
@@ -385,18 +408,17 @@ export default function CreateValentine() {
                           placeholder="e.g. Your King, Chidi, Femi"
                           type="text"
                         />
-                        <span className="material-symbols-outlined absolute right-6 top-[52px] text-zinc-300 group-focus-within:text-primary transition-colors">
-                          edit
-                        </span>
+                        <Edit3
+                          className="absolute right-6 top-[52px] text-zinc-300 group-focus-within:text-primary transition-colors"
+                          size={20}
+                        />
                       </div>
                     </div>
 
                     {/* Visual Theme Grid */}
                     <div>
                       <div className="flex items-center gap-2 mb-6">
-                        <span className="material-symbols-outlined text-primary">
-                          palette
-                        </span>
+                        <Palette className="text-primary" size={24} />
                         <h2 className="text-[#181112] dark:text-white text-2xl font-bold">
                           Visual Theme
                         </h2>
@@ -418,15 +440,12 @@ export default function CreateValentine() {
                               }`}
                               style={{ background: theme.color }}
                             >
-                              <span
-                                className={`material-symbols-outlined text-white text-3xl transition-opacity ${
-                                  form.theme === theme.id
-                                    ? "opacity-100"
-                                    : "opacity-0 group-hover:opacity-100"
-                                }`}
-                              >
-                                check_circle
-                              </span>
+                              {form.theme === theme.id && (
+                                <CheckCircle2
+                                  className="text-white bg-primary rounded-full"
+                                  size={32}
+                                />
+                              )}
                             </div>
                             <p
                               className={`text-center font-bold ${form.theme === theme.id ? "text-primary" : "text-[#181112] dark:text-white"}`}
@@ -465,9 +484,7 @@ export default function CreateValentine() {
                                 : "bg-background-light dark:bg-zinc-800 text-[#181112] dark:text-white border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-700"
                             }`}
                           >
-                            <span className="material-symbols-outlined">
-                              {anim.icon}
-                            </span>
+                            <anim.icon size={20} />
                             {anim.name}
                           </button>
                         ))}
@@ -477,9 +494,7 @@ export default function CreateValentine() {
                     {/* Step 1 Footer */}
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-[#e6dbdd] dark:border-zinc-800">
                       <div className="flex items-center gap-2 text-[#896168] dark:text-zinc-400">
-                        <span className="material-symbols-outlined text-sm">
-                          lock
-                        </span>
+                        <Lock size={14} />
                         <span className="text-xs uppercase font-bold tracking-widest">
                           Your data is private
                         </span>
@@ -490,9 +505,10 @@ export default function CreateValentine() {
                         className="w-full md:w-auto min-w-[280px] h-16 bg-primary text-white text-xl font-extrabold rounded-full flex items-center justify-center gap-3 shadow-xl shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group"
                       >
                         Next: Our Journey
-                        <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
-                          arrow_forward
-                        </span>
+                        <ArrowRight
+                          className="group-hover:translate-x-1 transition-transform"
+                          size={20}
+                        />
                       </button>
                     </div>
                   </motion.div>
